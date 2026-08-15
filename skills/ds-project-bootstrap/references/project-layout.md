@@ -1,18 +1,40 @@
-# Project layout notes
+# Project layout
 
-## Why separate `raw` / `interim` / `processed`
+## Standard tree
 
-- **raw**: never mutate; regenerate everything from here
-- **interim**: cleaning, joins, feature drafts
-- **processed**: stable tables for EDA / modeling
+```
+project/
+├── AGENTS.md
+├── CLAUDE.md
+├── SPEC.md
+├── README.md
+├── .gitignore
+├── requirements.txt
+├── data/
+├── docs/
+│   ├── DATA_DICTIONARY.md
+│   └── INSIGHTS.md
+├── notebooks/
+├── outputs/
+└── scripts/
+```
 
-## Notebooks vs `src/`
+## Roles
 
-- Notebooks: exploration and narrative
-- `src/`: reusable transforms, metrics, training entrypoints
+| Path | Role |
+|------|------|
+| `data/` | Inputs and cleaned tables |
+| `docs/` | Living dictionary + insights (commit these) |
+| `notebooks/` | Exploration narrative |
+| `outputs/` | Figures, tables, artifacts |
+| `scripts/` | Reusable, numbered automation |
+| `SPEC.md` | Problem / metric / scope |
+| `AGENTS.md` | How agents must work in this repo |
+| `CLAUDE.md` | Short brief pointing at SPEC + AGENTS + docs |
 
-Promote notebook logic into `src/` once it stabilizes.
+## Messy project repair
 
-## Contracts
-
-A short data contract prevents silent schema drift. Update it when intake or quality skills discover mismatches.
+1. Create missing paths/files without deleting user content
+2. Propose moves (`reports/` → `outputs/`, random CSVs → `data/`)
+3. Run naming review; offer fixes before commit
+4. Commit scaffold and renames separately

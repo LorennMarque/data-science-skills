@@ -1,101 +1,137 @@
 ---
 name: ds-project-bootstrap
 description: >-
-  Scaffold a reproducible data science project (folders, env, README, data
-  contracts). Use when starting a new DS project, setting up analysis repos,
-  or when the user asks to bootstrap / initialize a data science workspace.
+  Bootstrap or repair a data science project layout (data, docs, notebooks,
+  outputs, scripts), create AGENTS.md / CLAUDE.md / SPEC.md / docs stubs, fix
+  file naming, and guide partial clear commits. Use when starting a new DS
+  project, cleaning a messy repo, or when the user asks to bootstrap / init.
 ---
 
 # DS Project Bootstrap
 
 ## Goal
 
-Create a clean, reproducible project layout before any analysis code.
+Leave the repo in a standard, agent-friendly layout with living docs and commit hygiene — before analysis starts.
+
+## When the project is messy
+
+If folders/files are scattered or missing the standard tree:
+
+1. Create any missing folders/files listed below (do not delete user work)
+2. Move existing assets into the right place **only after confirming** with the user
+3. Run the **naming review** and offer fixes before any commit
+
+## Target layout
+
+```
+project/
+├── AGENTS.md
+├── CLAUDE.md
+├── SPEC.md
+├── README.md
+├── .gitignore
+├── requirements.txt
+├── data/                 # raw & working datasets (gitignored patterns apply)
+├── docs/
+│   ├── DATA_DICTIONARY.md
+│   └── INSIGHTS.md
+├── notebooks/
+├── outputs/              # figures, tables, model artifacts
+└── scripts/
+```
+
+Create with:
+
+```bash
+bash skills/ds-project-bootstrap/scripts/init_project.sh /path/to/project
+```
+
+Or create the same files manually from [references/doc-templates.md](references/doc-templates.md).
 
 ## Workflow
 
-Copy and track:
-
 ```
 Bootstrap:
-- [ ] Clarify goal, success metric, and constraints
-- [ ] Create directory layout
-- [ ] Add environment + dependency files
-- [ ] Add README with problem statement
-- [ ] Add data contract stub
-- [ ] Document next skill to run (usually dataset-intake)
+- [ ] Clarify problem → fill SPEC.md
+- [ ] Ensure layout + .gitignore + requirements.txt
+- [ ] Write AGENTS.md, CLAUDE.md, SPEC.md
+- [ ] Seed docs/DATA_DICTIONARY.md and docs/INSIGHTS.md
+- [ ] Naming review → offer renames before commit
+- [ ] Partial commits (structure / docs / renames separately)
+- [ ] Handoff: dataset-intake or data-quality-audit
 ```
 
-### 1. Clarify scope
+### 1. SPEC.md
 
-Ask only what blocks scaffolding:
+Capture: problem, success metric, scope in/out, data sources, constraints, open questions. Keep it short; update when the goal changes.
 
-- Business question / decision
-- Primary metric and time horizon
-- Data sources available (paths, APIs, warehouses)
-- Python vs R preference (default: Python)
+### 2. AGENTS.md (required practices)
 
-### 2. Create layout
+Seed from the template. It must instruct agents to:
 
-```
-project-name/
-├── README.md
-├── pyproject.toml          # or requirements.txt
-├── .gitignore
-├── data/
-│   ├── raw/                # immutable inputs
-│   ├── interim/            # cleaned intermediates
-│   └── processed/          # model-ready tables
-├── notebooks/
-├── src/
-│   └── <package>/
-├── reports/
-│   ├── figures/
-│   └── tables/
-└── tests/
-```
+- Prefer the standard folder layout above
+- Keep `docs/DATA_DICTIONARY.md` and `docs/INSIGHTS.md` current as findings appear
+- Update living docs **before** committing related work
+- Use numbered notebook/script names (`01_`, `02_`, …) — see naming rules
+- Offer to fix naming/order **before** committing
+- Make **partial, clear commits** (one concern per commit); never dump unrelated changes together
+- Not commit secrets, raw bulky extracts, or `.venv/`
 
-Prefer `src/` packages over dumping logic into notebooks.
+### 3. CLAUDE.md
 
-### 3. Environment
+Short project brief for Claude-compatible agents: point to `SPEC.md`, `AGENTS.md`, and the docs that must stay updated. Keep under ~80 lines.
 
-- Pin Python version in `pyproject.toml` or `.python-version`
-- Minimal starter deps: `pandas`, `numpy`, `matplotlib`, `scikit-learn`, `pyarrow`
-- Add `.gitignore` covering `data/raw/`, `.venv/`, `__pycache__/`, `.ipynb_checkpoints/`
+### 4. Living docs
 
-### 4. README skeleton
+| File | Role |
+|------|------|
+| `docs/DATA_DICTIONARY.md` | Tables, grain, columns, types, nullability, keys |
+| `docs/INSIGHTS.md` | Dated findings, decisions, open questions |
 
-```markdown
-# <Project>
+**Rule:** when something new is learned (schema quirk, quality issue, insight), append/update these docs in the same work session, then commit docs with or just before the code that depends on them.
 
-## Problem
-## Success metric
-## Data sources
-## Setup
-## Reproducibility notes
-## Analysis log
+### 5. Naming review (before commit)
+
+Scan `notebooks/`, `scripts/`, and key data files. Flag:
+
+- Missing numeric prefixes where order matters
+- Gaps or collisions (`01_`, `03_` without `02_`)
+- Spaces, inconsistent case, vague names (`analisis_final_v2_final.ipynb`)
+- Outputs sitting outside `outputs/`
+
+Propose a rename plan, **ask before applying**, then commit renames alone:
+
+```text
+chore: normalize notebook and script filenames
 ```
 
-### 5. Data contract stub
+Rules: [references/naming-and-commits.md](references/naming-and-commits.md)
 
-Create `data/CONTRACT.md` (or YAML) with:
+### 6. Partial commits
 
-- Expected tables / files
-- Key columns, types, grain (row meaning)
-- Freshness and known caveats
+After bootstrap, prefer separate commits such as:
 
-## Scripts
+1. `chore: scaffold project layout and gitignore`
+2. `docs: add SPEC, AGENTS, CLAUDE, and living docs stubs`
+3. `chore: rename notebooks/scripts to numbered convention` (only if user accepted)
 
-- `scripts/init_project.sh` — create the standard folder tree
+Do not mix scaffolding, renames, and analysis in one commit.
 
-```bash
-bash skills/ds-project-bootstrap/scripts/init_project.sh /path/to/project-name
+## requirements.txt starter
+
+```
+pandas>=2.0
+numpy>=1.24
+matplotlib>=3.7
+scikit-learn>=1.3
+pyarrow>=14.0
+jupyter>=1.0
 ```
 
-## References
-
-- Layout rationale: [references/project-layout.md](references/project-layout.md)
+Pin tighter only when the user asks.
 
 ## Handoff
 
-Next: **dataset-intake** once raw data paths exist.
+1. Place or link raw data under `data/`
+2. Run **dataset-intake** (load + first dictionary pass)
+3. Run **data-quality-audit** (quality findings → docs + optional clean outputs)
