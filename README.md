@@ -10,6 +10,7 @@ Agent skills for end-to-end data science workflows in Cursor.
 | [dataset-intake](skills/dataset-intake/) | Load data and seed `docs/DATA_DICTIONARY.md` |
 | [data-quality-audit](skills/data-quality-audit/) | Quality audit with docs updated before commit |
 | [exploratory-data-analysis](skills/exploratory-data-analysis/) | Structured EDA → `docs/INSIGHTS.md` |
+| [data-visualization](skills/data-visualization/) | Clear, honest charts for communication |
 | [statistical-analysis](skills/statistical-analysis/) | Hypothesis tests and inference |
 | [machine-learning](skills/machine-learning/) | Train and iterate models |
 | [model-evaluation](skills/model-evaluation/) | Metrics, diagnostics, comparison |
@@ -18,7 +19,7 @@ Agent skills for end-to-end data science workflows in Cursor.
 ## Suggested flow
 
 ```
-bootstrap → intake → data-quality-audit → EDA → stats / ML → evaluation → review
+bootstrap → intake → data-quality-audit → EDA → visualization → stats / ML → evaluation → review
 ```
 
 Living docs (`docs/DATA_DICTIONARY.md`, `docs/INSIGHTS.md`) update as findings appear, before related commits.
