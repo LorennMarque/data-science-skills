@@ -6,10 +6,10 @@ Agent skills for end-to-end data science workflows in Cursor.
 
 | Skill | Purpose |
 |-------|---------|
-| [ds-project-bootstrap](skills/ds-project-bootstrap/) | Scaffold a reproducible DS project |
-| [dataset-intake](skills/dataset-intake/) | Load, validate, and document datasets |
-| [data-quality](skills/data-quality/) | Profile quality issues and remediation |
-| [exploratory-data-analysis](skills/exploratory-data-analysis/) | Structured EDA and insights |
+| [ds-project-bootstrap](skills/ds-project-bootstrap/) | Scaffold/repair layout, AGENTS/CLAUDE/SPEC, living docs, naming + commits |
+| [dataset-intake](skills/dataset-intake/) | Load data and seed `docs/DATA_DICTIONARY.md` |
+| [data-quality-audit](skills/data-quality-audit/) | Quality audit with docs updated before commit |
+| [exploratory-data-analysis](skills/exploratory-data-analysis/) | Structured EDA → `docs/INSIGHTS.md` |
 | [statistical-analysis](skills/statistical-analysis/) | Hypothesis tests and inference |
 | [machine-learning](skills/machine-learning/) | Train and iterate models |
 | [model-evaluation](skills/model-evaluation/) | Metrics, diagnostics, comparison |
@@ -18,8 +18,10 @@ Agent skills for end-to-end data science workflows in Cursor.
 ## Suggested flow
 
 ```
-bootstrap → intake → data-quality → EDA → stats / ML → evaluation → review
+bootstrap → intake → data-quality-audit → EDA → stats / ML → evaluation → review
 ```
+
+Living docs (`docs/DATA_DICTIONARY.md`, `docs/INSIGHTS.md`) update as findings appear, before related commits.
 
 ## Layout
 
@@ -29,9 +31,9 @@ evals/      # Eval harnesses and fixtures
 examples/   # End-to-end example projects
 ```
 
-## Install
+Bootstrapped analysis projects use: `data/`, `docs/`, `notebooks/`, `outputs/`, `scripts/`, plus `AGENTS.md`, `CLAUDE.md`, `SPEC.md`.
 
-Copy or symlink skills into your Cursor skills directory:
+## Install
 
 ```bash
 # Personal skills

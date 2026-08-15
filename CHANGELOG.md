@@ -9,7 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial skill pack scaffolding
-- Skills: `ds-project-bootstrap`, `dataset-intake`, `data-quality`, `exploratory-data-analysis`, `statistical-analysis`, `machine-learning`, `model-evaluation`, `analysis-review`
+- `data-quality-audit` skill with living-docs-before-commit workflow
+- Bootstrap templates: `AGENTS.md`, `CLAUDE.md`, `SPEC.md`, `docs/DATA_DICTIONARY.md`, `docs/INSIGHTS.md`
+- Naming review + partial commit conventions in bootstrap references
+
+### Changed
+
+- `ds-project-bootstrap` target layout: `data/`, `docs/`, `notebooks/`, `outputs/`, `scripts/`
+- `dataset-intake` and EDA skills now write to living docs
+- Replaced `data-quality` with `data-quality-audit`
+
+### Added (initial)
+
+- Skills: `ds-project-bootstrap`, `dataset-intake`, `exploratory-data-analysis`, `statistical-analysis`, `machine-learning`, `model-evaluation`, `analysis-review`
 - Eval stubs under `evals/`
 - Example project stubs: `churn-analysis`, `sales-forecast`

@@ -20,9 +20,15 @@ EDA:
 - [ ] Univariate profiles (target + key drivers)
 - [ ] Bivariate / segmented views
 - [ ] Time trends if temporal
-- [ ] Write 5–10 insights with evidence
+- [ ] Write 5–10 insights with evidence → append docs/INSIGHTS.md
+- [ ] Update docs/DATA_DICTIONARY.md if schema understanding changed
 - [ ] List open questions / next analyses
+- [ ] Commit docs before or with related notebooks/figures
 ```
+
+### Living docs
+
+Every non-trivial finding goes into `docs/INSIGHTS.md` (dated). Put figures under `outputs/`. Do not leave docs stale across commits.
 
 ### Principles
 
@@ -49,9 +55,9 @@ Avoid laundry lists of charts with no narrative.
 
 ## Deliverables
 
-- Notebook or script under `notebooks/` / `src/`
-- Figures in `reports/figures/`
-- Short EDA summary in `reports/`
+- Numbered notebook under `notebooks/` and/or script under `scripts/`
+- Figures in `outputs/`
+- Updated `docs/INSIGHTS.md` (and dictionary if needed)
 
 ## Handoff
 

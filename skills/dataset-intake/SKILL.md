@@ -1,27 +1,28 @@
 ---
 name: dataset-intake
 description: >-
-  Load, validate schema, and document datasets for analysis. Use when ingesting
-  CSV/Parquet/SQL data, registering new tables, checking schema against a data
-  contract, or starting work on a fresh data source.
+  Load, validate schema, and document datasets into docs/DATA_DICTIONARY.md.
+  Use when ingesting CSV/Parquet/SQL data, registering new tables, or starting
+  work on a fresh data source.
 ---
 
 # Dataset Intake
 
 ## Goal
 
-Get data into a known, documented state before quality checks or EDA.
+Get data into a known, documented state before quality audit or EDA.
 
 ## Workflow
 
 ```
 Intake:
-- [ ] Locate source files / queries
+- [ ] Locate source files / queries → place under data/
 - [ ] Load with explicit dtypes where possible
 - [ ] Record shape, grain, time range
-- [ ] Compare to data contract (create if missing)
-- [ ] Write a short intake note
-- [ ] Handoff to data-quality
+- [ ] Update docs/DATA_DICTIONARY.md
+- [ ] Append intake note to docs/INSIGHTS.md
+- [ ] Partial commit: docs (then code/notebook if any)
+- [ ] Handoff to data-quality-audit
 ```
 
 ### 1. Load
@@ -38,50 +39,40 @@ df = pd.read_csv(
 )
 ```
 
-For SQL, keep the query in `src/` or `notebooks/` and save a snapshot to `data/raw/` or `data/interim/`.
+Keep load logic in numbered `scripts/` or `notebooks/` (`01_intake.*`). Save snapshots under `data/`.
 
-### 2. Capture facts
+### 2. Capture facts → DATA_DICTIONARY.md
 
-Record:
+Update:
 
-- Row count, column count
-- Grain (what one row means)
-- Primary / candidate keys
-- Time column + min/max
-- Missingness rate per key columns
-- Sample of unexpected values
+- Dataset path, grain, primary/candidate keys
+- Row/column counts, time range
+- Column types and nullability
+- Surprising values / sentinels
 
-### 3. Contract check
-
-If `data/CONTRACT.md` exists, flag:
-
-- Missing expected columns
-- Type mismatches
-- Duplicate keys
-- Rows outside expected date range
-
-If missing, draft the contract from observed schema.
-
-### 4. Intake note template
+### 3. INSIGHTS.md intake entry
 
 ```markdown
-## Intake — <dataset>
+## YYYY-MM-DD — Intake (<dataset>)
 
 - Source:
-- Loaded at:
 - Shape:
 - Grain:
 - Time range:
-- Issues / surprises:
-- Next: data-quality
+- Surprises:
+- Next: data-quality-audit
 ```
+
+### 4. Naming
+
+If new notebooks/scripts lack correct numbering, propose renames and ask before commit.
 
 ## Rules
 
-- Do not overwrite `data/raw/`
-- Prefer writing cleaned copies to `data/interim/`
-- Never assume column meaning — confirm with user when ambiguous
+- Do not overwrite irreplaceable raw sources in place
+- Never assume column meaning — confirm when ambiguous
+- Do not commit while leaving `DATA_DICTIONARY.md` / `INSIGHTS.md` stale
 
 ## Handoff
 
-Next: **data-quality**
+Next: **data-quality-audit**
