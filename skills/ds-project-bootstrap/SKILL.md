@@ -43,7 +43,7 @@ project/
 Create with:
 
 ```bash
-bash ds-project-bootstrap/scripts/init_project.sh /path/to/project
+bash skills/ds-project-bootstrap/scripts/init_project.sh /path/to/project
 ```
 
 Or create the same files manually from [references/doc-templates.md](references/doc-templates.md).
