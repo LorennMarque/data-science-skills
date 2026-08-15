@@ -19,5 +19,7 @@ venv/
 .vscode/
 *.swp
 
-# Workspace scratch (local agent workbench)
-workspace/
+# IDE / local agent wiring (install from agents/ — see agents/README.md)
+.cursor/
+.claude/
+.codex/

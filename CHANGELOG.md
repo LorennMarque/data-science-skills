@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Cursor subagents under `agents/` (expert prompts, one per skill)
 - `data-visualization` skill (compact Storytelling with Data standards)
 - `data-quality-audit` skill with living-docs-before-commit workflow
 - Bootstrap templates: `AGENTS.md`, `CLAUDE.md`, `SPEC.md`, `docs/DATA_DICTIONARY.md`, `docs/INSIGHTS.md`

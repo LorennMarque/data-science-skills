@@ -28,6 +28,7 @@ Living docs (`docs/DATA_DICTIONARY.md`, `docs/INSIGHTS.md`) update as findings a
 
 ```
 skills/     # Agent skills (SKILL.md + optional refs/scripts)
+agents/     # Cursor subagents (expert prompts) — copy/symlink to .cursor/agents/
 evals/      # Eval harnesses and fixtures
 examples/   # End-to-end example projects
 ```
@@ -37,13 +38,22 @@ Bootstrapped analysis projects use: `data/`, `docs/`, `notebooks/`, `outputs/`, 
 ## Install
 
 ```bash
-# Personal skills
+# Skills
 ln -s "$(pwd)/skills/"* ~/.cursor/skills/
 
-# Or project-scoped
+# Subagents (project)
+mkdir -p .cursor/agents
+ln -s "$(pwd)/agents/"*.md .cursor/agents/
+```
+
+Or project-scoped skills:
+
+```bash
 mkdir -p .cursor/skills
 ln -s "$(pwd)/skills/"* .cursor/skills/
 ```
+
+Invoke subagents with `/ds-bootstrap`, `/eda`, `/data-viz`, etc.
 
 ## License
 
