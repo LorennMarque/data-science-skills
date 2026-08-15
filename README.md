@@ -8,7 +8,7 @@ Each folder under `skills/` is one skill (`SKILL.md` + optional `references/` / 
 
 | Skill | Purpose |
 |-------|---------|
-| [ds-project-bootstrap](skills/ds-project-bootstrap/) | Scaffold/repair layout, AGENTS/CLAUDE/SPEC, living docs, naming + commits |
+| [ds-project-bootstrap](skills/ds-project-bootstrap/) | Scaffold/repair layout, AGENTS/CLAUDE/SPEC, living docs + RESEARCH brief, naming + commits |
 | [dataset-intake](skills/dataset-intake/) | Load data and seed `docs/DATA_DICTIONARY.md` |
 | [data-quality-audit](skills/data-quality-audit/) | Quality audit with docs updated before commit |
 | [exploratory-data-analysis](skills/exploratory-data-analysis/) | Structured EDA → `docs/INSIGHTS.md` |
