@@ -61,6 +61,7 @@ Avoid laundry lists of charts with no narrative.
 
 ## Handoff
 
+- Communication charts / dashboards → **data-visualization**
 - Inferential questions → **statistical-analysis**
 - Predictive goals → **machine-learning**
 - Done analyzing → **analysis-review**
