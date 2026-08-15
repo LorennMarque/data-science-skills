@@ -34,7 +34,8 @@ project/
 ├── data/                 # raw & working datasets (gitignored patterns apply)
 ├── docs/
 │   ├── DATA_DICTIONARY.md
-│   └── INSIGHTS.md
+│   ├── INSIGHTS.md
+│   └── RESEARCH.md
 ├── notebooks/
 ├── outputs/              # figures, tables, model artifacts
 └── scripts/
@@ -55,9 +56,10 @@ Bootstrap:
 - [ ] Clarify problem → fill SPEC.md
 - [ ] Ensure layout + .gitignore + requirements.txt
 - [ ] Write AGENTS.md, CLAUDE.md, SPEC.md
-- [ ] Seed docs/DATA_DICTIONARY.md and docs/INSIGHTS.md
+- [ ] Seed docs/DATA_DICTIONARY.md, docs/INSIGHTS.md, docs/RESEARCH.md
+- [ ] Case research pass → fill RESEARCH.md (if context exists)
 - [ ] Naming review → offer renames before commit
-- [ ] Partial commits (structure / docs / renames separately)
+- [ ] Partial commits (structure / docs / research / renames separately)
 - [ ] Handoff: dataset-intake or data-quality-audit
 ```
 
@@ -70,7 +72,7 @@ Capture: problem, success metric, scope in/out, data sources, constraints, open 
 Seed from the template. It must instruct agents to:
 
 - Prefer the standard folder layout above
-- Keep `docs/DATA_DICTIONARY.md` and `docs/INSIGHTS.md` current as findings appear
+- Keep `docs/DATA_DICTIONARY.md`, `docs/INSIGHTS.md`, and `docs/RESEARCH.md` current as findings appear
 - Update living docs **before** committing related work
 - Use numbered notebook/script names (`01_`, `02_`, …) — see naming rules
 - Offer to fix naming/order **before** committing
@@ -79,7 +81,7 @@ Seed from the template. It must instruct agents to:
 
 ### 3. CLAUDE.md
 
-Short project brief for Claude-compatible agents: point to `SPEC.md`, `AGENTS.md`, and the docs that must stay updated. Keep under ~80 lines.
+Short project brief for Claude-compatible agents: point to `SPEC.md`, `AGENTS.md`, and the docs that must stay updated (including `RESEARCH.md`). Keep under ~80 lines.
 
 ### 4. Living docs
 
@@ -87,10 +89,27 @@ Short project brief for Claude-compatible agents: point to `SPEC.md`, `AGENTS.md
 |------|------|
 | `docs/DATA_DICTIONARY.md` | Tables, grain, columns, types, nullability, keys |
 | `docs/INSIGHTS.md` | Dated findings, decisions, open questions |
+| `docs/RESEARCH.md` | Case framing + industry strategies, methods, tools |
 
-**Rule:** when something new is learned (schema quirk, quality issue, insight), append/update these docs in the same work session, then commit docs with or just before the code that depends on them.
+**Rule:** when something new is learned (schema quirk, quality issue, insight, better method), append/update these docs in the same work session, then commit docs with or just before the code that depends on them.
 
-### 5. Naming review (before commit)
+### 5. RESEARCH.md (case analysis at bootstrap)
+
+During bootstrap, if the user provides a brief, brief attachments, ticket text, prior README, or enough SPEC content:
+
+1. Summarize the case and decision objective
+2. Map it to common industry problem families (e.g. churn, forecasting, freemium conversion, credit risk, ops anomaly detection)
+3. Propose **strategies** (framing / analytical approaches used in practice)
+4. Propose **methods** (stats / ML / experimentation / causal where relevant)
+5. Propose **tools** commonly used in industry for that class of problem (libraries, platforms) — prefer pragmatic defaults aligned with this repo (`pandas`, `sklearn`, etc.) unless the case needs more
+6. Recommend a **primary path** + 1–2 alternatives with tradeoffs
+7. List risks, data prerequisites, and open questions
+
+If context is thin: create the stub, state what is missing, and ask only blocker questions — do not invent a fake industry brief.
+
+Do not turn RESEARCH into a literature dump. Keep it actionable and tied to SPEC. Guidance: [references/research-brief.md](references/research-brief.md).
+
+### 6. Naming review (before commit)
 
 Scan `notebooks/`, `scripts/`, and key data files. Flag:
 
@@ -107,13 +126,14 @@ chore: normalize notebook and script filenames
 
 Rules: [references/naming-and-commits.md](references/naming-and-commits.md)
 
-### 6. Partial commits
+### 7. Partial commits
 
 After bootstrap, prefer separate commits such as:
 
 1. `chore: scaffold project layout and gitignore`
 2. `docs: add SPEC, AGENTS, CLAUDE, and living docs stubs`
-3. `chore: rename notebooks/scripts to numbered convention` (only if user accepted)
+3. `docs: draft RESEARCH brief for <problem family>`
+4. `chore: rename notebooks/scripts to numbered convention` (only if user accepted)
 
 Do not mix scaffolding, renames, and analysis in one commit.
 

@@ -24,7 +24,7 @@ Each folder under `skills/` is one skill (`SKILL.md` + optional `references/` / 
 bootstrap → intake → data-quality-audit → EDA → visualization → stats / ML → evaluation → review
 ```
 
-Living docs in bootstrapped projects (`docs/DATA_DICTIONARY.md`, `docs/INSIGHTS.md`) update as findings appear, before related commits.
+Living docs in bootstrapped projects (`docs/DATA_DICTIONARY.md`, `docs/INSIGHTS.md`, `docs/RESEARCH.md`) update as findings appear, before related commits. Bootstrap fills `RESEARCH.md` with industry strategies/methods/tools when case context exists.
 
 ## Install
 

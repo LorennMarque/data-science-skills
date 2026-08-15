@@ -69,7 +69,7 @@ pip install -r requirements.txt
 ## Layout
 
 - \`data/\` — datasets
-- \`docs/\` — DATA_DICTIONARY.md, INSIGHTS.md
+- \`docs/\` — DATA_DICTIONARY.md, INSIGHTS.md, RESEARCH.md
 - \`notebooks/\` — numbered exploratory notebooks
 - \`outputs/\` — figures, tables, artifacts
 - \`scripts/\` — numbered reusable scripts
@@ -113,7 +113,7 @@ Instructions for coding agents working in this repository.
 Keep this structure. Create missing folders; do not invent parallel trees.
 
 - `data/` — datasets (prefer not committing bulky raw extracts)
-- `docs/` — living documentation (`DATA_DICTIONARY.md`, `INSIGHTS.md`)
+- `docs/` — living documentation (`DATA_DICTIONARY.md`, `INSIGHTS.md`, `RESEARCH.md`)
 - `notebooks/` — exploration (numbered)
 - `outputs/` — figures, tables, model artifacts
 - `scripts/` — reusable scripts (numbered)
@@ -122,13 +122,16 @@ Keep this structure. Create missing folders; do not invent parallel trees.
 
 ## Living docs (update before commit)
 
-When you discover schema details, quality issues, or analysis insights:
+When you discover schema details, quality issues, analysis insights, or a better approach:
 
 1. Update `docs/DATA_DICTIONARY.md` (columns, types, grain, keys, sentinels)
 2. Append to `docs/INSIGHTS.md` with date, finding, decision, open questions
-3. Only then commit related code/notebooks/data moves
+3. Update `docs/RESEARCH.md` when the problem framing, strategy, methods, or tool choices change
+4. Only then commit related code/notebooks/data moves
 
 Stale docs are a defect — fix docs in the same session as the finding.
+
+At bootstrap (and when SPEC changes materially): analyze available case context and fill `RESEARCH.md` with industry-aligned strategies, methods, and tools for the objective.
 
 ## Naming
 
@@ -165,12 +168,14 @@ Read in this order when starting work:
 
 1. `SPEC.md` — problem and success metric
 2. `AGENTS.md` — layout, naming, commits, living docs
-3. `docs/DATA_DICTIONARY.md` — schema
-4. `docs/INSIGHTS.md` — prior findings and decisions
+3. `docs/RESEARCH.md` — strategies, methods, tools for the objective
+4. `docs/DATA_DICTIONARY.md` — schema
+5. `docs/INSIGHTS.md` — prior findings and decisions
 
 ## Must do
 
-- Keep `docs/DATA_DICTIONARY.md` and `docs/INSIGHTS.md` updated as you learn things
+- Keep `docs/DATA_DICTIONARY.md`, `docs/INSIGHTS.md`, and `docs/RESEARCH.md` updated as you learn things
+- At bootstrap (or when SPEC changes), fill RESEARCH with an industry-aligned plan when case context exists
 - Update those docs before (or in the same change set as) commits that depend on the findings
 - Use numbered `notebooks/` and `scripts/` names; offer renames before commit if order/names are wrong
 - Prefer partial, clear commits
@@ -178,8 +183,9 @@ Read in this order when starting work:
 ## Must not
 
 - Commit secrets or virtualenvs
-- Leave living docs stale after a quality or EDA finding
+- Leave living docs stale after a quality, EDA, or approach change
 - Dump unrelated changes into a single commit
+- Invent a detailed RESEARCH brief when there is no case context — ask for blockers instead
 EOF
 fi
 
@@ -239,5 +245,58 @@ Living log — append dated entries as findings appear. Update before related co
 EOF
 fi
 
+if [[ ! -f "$ROOT/docs/RESEARCH.md" ]]; then
+  cat > "$ROOT/docs/RESEARCH.md" <<'EOF'
+# Research brief
+
+Living document — draft at bootstrap when case context exists; update when the objective or approach changes.
+
+## Case summary
+
+- Objective / decision:
+- Success metric (from SPEC):
+- Constraints:
+- Available context: (brief / ticket / data description / none yet)
+
+## Problem family
+
+Industry label(s) this case most resembles:
+
+## Strategies (industry practice)
+
+| Strategy | When it fits | Tradeoffs |
+|----------|--------------|-----------|
+|          |              |           |
+
+## Methods
+
+| Method | Maps to strategy | Data / design needs | Notes |
+|--------|------------------|---------------------|-------|
+|        |                  |                     |       |
+
+## Tools commonly used
+
+| Layer | Options used in industry | Proposed for this repo |
+|-------|--------------------------|------------------------|
+| Data wrangling | | |
+| EDA / viz | | |
+| Stats / experiment | | |
+| ML | | |
+| Tracking / ops | | |
+
+## Recommended approach
+
+- **Primary:**
+- **Alternatives:**
+- **Why this fits SPEC:**
+
+## Risks & prerequisites
+
+## Open questions
+
+<!-- What must be answered before locking the approach -->
+EOF
+fi
+
 echo "Initialized DS project at: $ROOT"
-echo "Next: fill SPEC.md, then dataset-intake / data-quality-audit"
+echo "Next: fill SPEC.md + RESEARCH.md (if context exists), then dataset-intake / data-quality-audit"
