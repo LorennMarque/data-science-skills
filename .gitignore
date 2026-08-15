@@ -14,12 +14,13 @@ venv/
 # OS
 .DS_Store
 
-# IDE
+# IDE / local Cursor wiring
 .idea/
 .vscode/
-*.swp
-
-# IDE / local agent wiring (install from agents/ — see agents/README.md)
 .cursor/
 .claude/
 .codex/
+*.swp
+
+# Local scratch
+workspace/
